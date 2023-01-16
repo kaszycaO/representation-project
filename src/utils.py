@@ -54,23 +54,16 @@ def evaluate_embeddings(z: torch.Tensor, y: torch.Tensor, random_state: int = 34
 
     return fig, data
 
-def generate_gcn_summary(df: pd.DataFrame, results_path: str) -> pd.DataFrame:
-    
-    mean_df = pd.DataFrame(df[df.model_name == "Supervised_GCN_64"].mean(), columns=["0"])
-    std_df = pd.DataFrame(df[df.model_name == "Supervised_GCN_64"].std(), columns=["1"])
-    
-    df = pd.read_csv(results_path / "gcn_stats.csv")
-    df.sort_values("f1_test", ascending=False)
-    
-    stats_df = pd.concat([mean_df, std_df], axis=1)
-    stats_df["Supervised_GCN_64"] = stats_df.apply(lambda row: f"{round(row['0'], 3)} +- {round(row['1'], 3)}", axis=1)
-    stats_df = stats_df.drop(["0", "1"], axis=1).T
+def generate_gcn_summary(df: pd.DataFrame) -> pd.DataFrame:
+    dfs = []
+    for model_name in list(df["model_name"].unique()):
 
-    mean_df = pd.DataFrame(df[df.model_name == "Supervised_GCN_128"].mean(), columns=["0"])
-    std_df = pd.DataFrame(df[df.model_name == "Supervised_GCN_128"].std(), columns=["1"])
-
-    stats_df_2 = pd.concat([mean_df, std_df], axis=1)
-    stats_df_2["Supervised_GCN_128"] = stats_df_2.apply(lambda row: f"{round(row['0'], 3)} +- {round(row['1'], 3)}", axis=1)
-    stats_df_2 = stats_df_2.drop(["0", "1"], axis=1).T
+        mean_df = pd.DataFrame(df[df.model_name == model_name].mean(), columns=["0"])
+        std_df = pd.DataFrame(df[df.model_name == model_name].std(), columns=["1"])
+        stats_df = pd.concat([mean_df, std_df], axis=1)
+        
+        stats_df[model_name] = stats_df.apply(lambda row: f"{round(row['0'], 3)} +- {round(row['1'], 3)}", axis=1)
+        stats_df = stats_df.drop(["0", "1"], axis=1).T
+        dfs.append(stats_df)
     
-    return pd.concat([stats_df, stats_df_2])
+    return pd.concat(dfs)
