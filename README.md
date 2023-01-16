@@ -2,7 +2,7 @@
 
 ## Short description
 
-Node prediction based on *email-Eu-core* dataset visualised below. The network consist of 986 nodes grouped into 42 groups.
+Node prediction based on *email-Eu-core* dataset visualised below. The network consist of 986 nodes grouped into 37 groups.
 Experiments:
 - Graph Attention Network (GAT)
 - Graph Convolutional Network (GCN) 
