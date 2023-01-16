@@ -54,7 +54,7 @@ def evaluate_embeddings(z: torch.Tensor, y: torch.Tensor, random_state: int = 34
 
     return fig, data
 
-def generate_gcn_summary(df: pd.DataFrame) -> pd.DataFrame:
+def generate_summary(df: pd.DataFrame) -> pd.DataFrame:
     dfs = []
     for model_name in list(df["model_name"].unique()):
 
