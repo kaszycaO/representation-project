@@ -14,8 +14,6 @@ In addition a `node2vec` method is used to generate an extra information about e
 
 Klasyfikację przeprowadzono na zmodyfikowanej sieci *email-Eu-core* składającej się z 986 wierzchołków, przyporządkowanych do 37 grup. Zbiór danych reprezentuje konwersacje mailowe między pracownikami pewnej firmy.
 
-![Network](images/network.png)
-
 ## Modele poddane eksperymentom:
 
 - Graph Attention Network (GAT)
