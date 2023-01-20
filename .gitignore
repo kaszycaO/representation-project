@@ -132,3 +132,6 @@ embbeddings/
 data/
 dataset*
 logs
+
+checkpoints/
+project/
